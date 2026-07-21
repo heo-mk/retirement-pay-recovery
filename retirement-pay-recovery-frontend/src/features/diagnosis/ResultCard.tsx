@@ -1,6 +1,9 @@
 import { useRecommendedActions } from './useRecommendedActions';
 import LegalDisclaimer from '../../shared/LegalDisclaimer';
+import LegalResultList from '../../shared/components/LegalResultList';
 import { useProgressStore } from '../../stores/progressStore';
+import { useStatutesQuery, usePrecedentsQuery } from '../../api/legalQueries';
+import { stageKeywordMap } from './stageKeywordMap';
 
 // ResultCard 없이는 추천 행동을 절대 보여주지 않는다 — 법적 고지 누락 방지
 export default function ResultCard() {
@@ -10,6 +13,25 @@ export default function ResultCard() {
 
   const isResolved = currentStage === 'resolved';
   const isAdvanced = currentStage === 'advanced_tactics';
+
+  // 현재 단계에 매핑된 키워드를 가져온다.
+  // 매핑이 없는 단계(start 등)는 keyword가 '' → enabled: false → 요청 안 함
+  const keyword = stageKeywordMap[currentStage] ?? '';
+
+  const {
+    data: statutes = [],
+    isLoading: isLoadingStatutes,
+    isError: isErrorStatutes,
+  } = useStatutesQuery(keyword);
+
+  const {
+    data: precedents = [],
+    isLoading: isLoadingPrecedents,
+    isError: isErrorPrecedents,
+  } = usePrecedentsQuery(keyword);
+
+  // keyword가 없는 단계(매핑 미존재)는 법령·판례 섹션 자체를 숨긴다
+  const showLegalSection = keyword.length > 0;
 
   return (
     <div className="result-card">
@@ -41,6 +63,18 @@ export default function ResultCard() {
             </li>
           ))}
         </ul>
+      )}
+
+      {/* 관련 법령·판례 섹션 — 키워드 매핑이 있는 단계에서만 표시 */}
+      {showLegalSection && (
+        <LegalResultList
+          statutes={statutes}
+          precedents={precedents}
+          isLoadingStatutes={isLoadingStatutes}
+          isLoadingPrecedents={isLoadingPrecedents}
+          isErrorStatutes={isErrorStatutes}
+          isErrorPrecedents={isErrorPrecedents}
+        />
       )}
 
       {/* 법적 고지는 ResultCard가 항상 렌더링한다 */}
