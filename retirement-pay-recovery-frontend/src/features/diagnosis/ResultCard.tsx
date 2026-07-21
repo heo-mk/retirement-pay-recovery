@@ -12,7 +12,6 @@ export default function ResultCard() {
   const reset = useProgressStore((s) => s.reset);
 
   const isResolved = currentStage === 'resolved';
-  const isAdvanced = currentStage === 'advanced_tactics';
 
   // 현재 단계에 매핑된 키워드를 가져온다.
   // 매핑이 없는 단계(start 등)는 keyword가 '' → enabled: false → 요청 안 함
@@ -52,7 +51,8 @@ export default function ResultCard() {
       </div>
 
       {actions.length > 0 && (
-        <ul className="action-list">
+        /* 모바일: 세로 1열(기존 action-list CSS) / PC(lg:): 2열 그리드 */
+        <ul className="action-list lg:grid lg:grid-cols-2 lg:gap-4">
           {actions.map((action) => (
             <li
               key={action.id}
@@ -64,6 +64,7 @@ export default function ResultCard() {
           ))}
         </ul>
       )}
+
 
       {/* 관련 법령·판례 섹션 — 키워드 매핑이 있는 단계에서만 표시 */}
       {showLegalSection && (

@@ -1,3 +1,12 @@
+/* ── Tailwind CSS 지시어 ─────────────────────────────────────────────────────
+   preflight(base reset)는 tailwind.config.js에서 비활성화했으므로
+   기존 CSS 디자인 토큰과 충돌하지 않는다.
+   utilities/components는 반응형 유틸리티 클래스를 생성한다.
+   ──────────────────────────────────────────────────────────────────────── */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 *,
 *::before,
 *::after {

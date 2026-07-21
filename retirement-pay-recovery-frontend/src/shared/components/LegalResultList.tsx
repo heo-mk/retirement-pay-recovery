@@ -13,7 +13,8 @@ function StatuteList({ items }: StatuteListProps) {
   }
 
   return (
-    <ul className="legal-result-list" aria-label="관련 법령 목록">
+    /* 모바일: 세로 1열 / PC(lg:): 2열 그리드로 공간 활용 */
+    <ul className="legal-result-list lg:grid lg:grid-cols-2 lg:gap-3" aria-label="관련 법령 목록">
       {items.map((item, idx) => (
         <li key={item.id ?? idx} className="legal-result-item">
           <div className="legal-result-title">{item.title ?? '—'}</div>
@@ -53,7 +54,8 @@ function PrecedentList({ items }: PrecedentListProps) {
   }
 
   return (
-    <ul className="legal-result-list" aria-label="관련 판례 목록">
+    /* 모바일: 세로 1열 / PC(lg:): 2열 그리드로 공간 활용 */
+    <ul className="legal-result-list lg:grid lg:grid-cols-2 lg:gap-3" aria-label="관련 판례 목록">
       {items.map((item, idx) => (
         <li key={item.id ?? idx} className="legal-result-item">
           <div className="legal-result-title">

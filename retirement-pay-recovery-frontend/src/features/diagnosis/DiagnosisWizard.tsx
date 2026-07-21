@@ -125,7 +125,8 @@ export default function DiagnosisWizard() {
   };
 
   return (
-    <main className="wizard-container">
+    // 모바일: px-4 / PC: 좌우 여백 확대 + 최대 2xl 너비로 제한해 가독성 확보
+    <main className="wizard-container px-4 lg:px-8 lg:max-w-2xl lg:mx-auto">
       {/* 헤더 */}
       <header className="wizard-header">
         <h1 className="wizard-title">퇴직금 회수 진단 도구</h1>

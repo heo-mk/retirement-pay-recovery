@@ -6,7 +6,10 @@ import { useQuery } from '@tanstack/react-query';
 // 이 인스턴스를 통해 모든 법령·판례 요청을 보내면, 나중에 baseURL이 바뀌어도
 // 이 파일 한 곳만 수정하면 된다.
 const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL as string,
+  // 개발 환경에서는 Vite proxy(/api → localhost:5001)를 통해 요청된다.
+  // VITE_API_BASE_URL이 지정된 경우 그 값을 사용(프로덕션 배포 시),
+  // 비어 있으면 상대 경로('')로 요청하여 Vite proxy가 처리한다.
+  baseURL: (import.meta.env.VITE_API_BASE_URL as string) || '',
   timeout: 10_000,
 });
 

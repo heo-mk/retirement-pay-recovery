@@ -4,7 +4,8 @@ import TimelineStage from './TimelineStage';
 
 export default function TimelinePage() {
   return (
-    <main className="timeline-page">
+    // 모바일: px-4 좌우 여백 / PC: 최대 너비 3xl로 제한 + 가운데 정렬 + 좌우 여백 확대
+    <main className="timeline-page px-4 lg:px-8 lg:max-w-3xl lg:mx-auto">
       {/* 법적 고지 */}
       <LegalDisclaimer />
 
@@ -16,8 +17,11 @@ export default function TimelinePage() {
         </p>
       </header>
 
-      {/* 타임라인 카드 목록 */}
-      <section className="timeline-list" aria-label="퇴직금 회수 단계별 기록">
+      {/* 타임라인 카드 목록: 모바일에서 세로 1열 */}
+      <section
+        className="timeline-list flex flex-col"
+        aria-label="퇴직금 회수 단계별 기록"
+      >
         {timelineContent.map((entry, index) => (
           <TimelineStage key={entry.id} entry={entry} index={index} />
         ))}
