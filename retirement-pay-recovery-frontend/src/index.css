@@ -336,3 +336,184 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+/* ── 타임라인 페이지 ─────────────────────────────────────── */
+.timeline-page {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.timeline-header {
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+
+.timeline-page-title {
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #60a5fa, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.25;
+  margin-bottom: 1rem;
+}
+
+.timeline-intro {
+  color: var(--color-text-muted);
+  font-size: 0.975rem;
+  line-height: 1.75;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* ── 타임라인 카드 (연결선 포함 레이아웃) ──────────────── */
+.timeline-card {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 0 1.25rem;
+  position: relative;
+}
+
+/* 왼쪽 기둥 (닷 + 세로선) */
+.timeline-connector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timeline-dot {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3b82f6, #7c3aed);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 4px #3b82f622;
+  z-index: 1;
+}
+
+.timeline-dot-number {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.timeline-line {
+  flex: 1;
+  width: 2px;
+  background: linear-gradient(to bottom, #3b82f644, transparent);
+  margin-top: 4px;
+  min-height: 2rem;
+}
+
+.timeline-card:last-child .timeline-line {
+  display: none;
+}
+
+/* 오른쪽 카드 본체 */
+.timeline-card-body {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.timeline-card-body:hover {
+  border-color: #3b82f644;
+  box-shadow: 0 4px 24px #3b82f61a;
+}
+
+.timeline-card-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--color-text);
+}
+
+.timeline-card-text {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.75;
+}
+
+/* ── 콜아웃 박스 ────────────────────────────────────────── */
+.timeline-callout {
+  border-radius: var(--radius-sm);
+  padding: 0.875rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  line-height: 1.65;
+}
+
+.timeline-callout-label {
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.01em;
+}
+
+/* 시행착오 — 노란 톤 */
+.timeline-callout--pitfall {
+  background: #451a0322;
+  border: 1px solid #f59e0b55;
+  color: #fcd34d;
+}
+
+.timeline-callout--pitfall .timeline-callout-label {
+  color: #f59e0b;
+}
+
+.timeline-callout--pitfall p {
+  color: #fde68a99;
+}
+
+/* 최악의 상황 — 붉은 톤 */
+.timeline-callout--worst {
+  background: #7f1d1d22;
+  border: 1px solid #ef444455;
+  color: #fca5a5;
+}
+
+.timeline-callout--worst .timeline-callout-label {
+  color: #ef4444;
+}
+
+.timeline-callout--worst p {
+  color: #fca5a599;
+}
+
+/* ── 진단 도구 점프 버튼 ─────────────────────────────────── */
+.timeline-jump-btn {
+  margin-top: 0.25rem;
+  padding: 0.75rem 1.25rem;
+  background: transparent;
+  border: 1.5px solid #3b82f666;
+  border-radius: var(--radius-sm);
+  color: #60a5fa;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  transition: background var(--transition), border-color var(--transition), color var(--transition), transform var(--transition);
+  align-self: flex-start;
+}
+
+.timeline-jump-btn:hover {
+  background: #3b82f61a;
+  border-color: #3b82f6;
+  color: #93c5fd;
+  transform: translateX(3px);
+}
