@@ -65,7 +65,7 @@ export default function DiagnosisWizard() {
       case 'complaint_filed':
         return (
           <ComplaintFiledQuestion
-            onAnswer={(filed, correctionIgnored) => {
+            onAnswer={(_filed, correctionIgnored) => {
               updateCaseDetails({ hasCorrectionOrderIgnored: correctionIgnored });
               goToStage('execution_title');
             }}
