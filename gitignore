@@ -1,0 +1,19 @@
+# 의존성
+node_modules/
+retirement-pay-recovery-backend/node_modules/
+retirement-pay-recovery-frontend/node_modules/
+
+# 환경변수 (민감 정보)
+.env
+.env.local
+retirement-pay-recovery-backend/.env
+retirement-pay-recovery-frontend/.env
+
+# 빌드 결과물
+dist/
+build/
+retirement-pay-recovery-frontend/dist/
+
+# 기타
+.DS_Store
+*.log
