@@ -1,20 +1,55 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
-// 사용자의 진단 진행 상황(클라이언트 상태)을 Zustand로 관리
-// 서버 상태(법령·판례 검색)는 TanStack Query가 담당하고, 이 store는 순수 클라이언트 UI 상태만 다룬다.
+// Zustand persist 미들웨어는 JSON 직렬화로 저장한다.
+// 함수(파생 로직)를 스토어에 두면 새로고침 후 사라지므로,
+// 스토어에는 순수 직렬화 가능한 데이터만 저장하고
+// "지금 뭘 추천할지"같은 파생 로직은 useMemo를 쓰는 훅에서 계산한다.
+
+export type Stage =
+  | 'start'
+  | 'received_check'
+  | 'time_elapsed'
+  | 'complaint_filed'
+  | 'execution_title'
+  | 'forced_execution'
+  | 'opponent_resisting'
+  | 'advanced_tactics'
+  | 'resolved';
+
+export interface CaseDetails {
+  unpaidAmount: number | null;
+  monthsElapsed: number | null;
+  hasCorrectionOrderIgnored: boolean | null;
+}
+
 interface ProgressState {
-  currentStep: number;
-  answers: Record<string, string>;
-  setCurrentStep: (step: number) => void;
-  setAnswer: (questionId: string, answer: string) => void;
+  currentStage: Stage;
+  caseDetails: CaseDetails;
+  goToStage: (stage: Stage) => void;
+  updateCaseDetails: (details: Partial<CaseDetails>) => void;
   reset: () => void;
 }
 
-export const useProgressStore = create<ProgressState>((set) => ({
-  currentStep: 0,
-  answers: {},
-  setCurrentStep: (step) => set({ currentStep: step }),
-  setAnswer: (questionId, answer) =>
-    set((state) => ({ answers: { ...state.answers, [questionId]: answer } })),
-  reset: () => set({ currentStep: 0, answers: {} }),
-}));
+const initialCaseDetails: CaseDetails = {
+  unpaidAmount: null,
+  monthsElapsed: null,
+  hasCorrectionOrderIgnored: null,
+};
+
+export const useProgressStore = create<ProgressState>()(
+  persist(
+    (set) => ({
+      currentStage: 'received_check',
+      caseDetails: initialCaseDetails,
+      goToStage: (stage) => set({ currentStage: stage }),
+      updateCaseDetails: (details) =>
+        set((state) => ({
+          caseDetails: { ...state.caseDetails, ...details },
+        })),
+      reset: () =>
+        set({ currentStage: 'received_check', caseDetails: initialCaseDetails }),
+    }),
+    { name: 'retirement-pay-progress' }
+  )
+);

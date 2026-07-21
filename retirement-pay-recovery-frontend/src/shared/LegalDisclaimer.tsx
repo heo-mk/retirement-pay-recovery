@@ -1,4 +1,14 @@
-// 법적 면책 고지 컴포넌트 — 다음 지시문에서 구현 예정
 export default function LegalDisclaimer() {
-  return null;
+  return (
+    <aside className="legal-disclaimer">
+      <p>
+        ⚠️ 이 내용은 법률 자문이 아닌 일반 정보입니다. 구체적인 사안은{' '}
+        <strong>대한법률구조공단</strong>(국번없이{' '}
+        <a href="tel:132" className="disclaimer-link">
+          132
+        </a>
+        ) 무료 상담을 권장합니다.
+      </p>
+    </aside>
+  );
 }
