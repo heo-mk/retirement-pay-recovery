@@ -641,3 +641,122 @@ body {
   padding: 0.5rem 0;
 }
 
+/* ── 네비게이션 바 ──────────────────────────────────────────── */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.navbar-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.navbar-brand {
+  font-size: 0.95rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #60a5fa, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.navbar-list {
+  list-style: none;
+  display: flex;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.navbar-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  color: var(--color-text-muted);
+  transition: background var(--transition), color var(--transition);
+  cursor: pointer;
+}
+
+.navbar-item:hover {
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.navbar-item--active {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+}
+
+.navbar-item--active .navbar-item-icon {
+  filter: none;
+}
+
+.navbar-item-icon {
+  font-size: 1rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.navbar-item-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.05rem;
+}
+
+.navbar-item-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.navbar-item-desc {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  line-height: 1.2;
+}
+
+.navbar-item--active .navbar-item-desc {
+  color: #93c5fd;
+}
+
+/* 모바일: desc 숨김 */
+@media (max-width: 480px) {
+  .navbar-item-desc {
+    display: none;
+  }
+
+  .navbar-brand {
+    display: none;
+  }
+
+  .navbar-inner {
+    justify-content: center;
+    gap: 0;
+  }
+
+  .navbar-list {
+    justify-content: space-around;
+  }
+}
+
+/* ── 콘텐츠 영역 (navbar 높이만큼 내려줌) ─────────────────── */
+.app-content {
+  padding-top: 60px;
+}
