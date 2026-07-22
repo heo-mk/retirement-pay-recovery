@@ -13,7 +13,7 @@ export default function TimelinePage() {
       <header className="timeline-header">
         <h1 className="timeline-page-title">퇴직금 회수 실전 기록</h1>
         <p className="timeline-intro">
-          TODO: 인트로 문구 작성
+          막연함 대신 명확한 로드맵을 따라 차분히 권리를 되찾으세요.
         </p>
       </header>
 
