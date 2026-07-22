@@ -1,6 +1,7 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useProgressStore } from '../../stores/progressStore';
 import type { TimelineEntry } from './timelineContent';
+import CertifiedMailCard from './CertifiedMailCard';
 
 interface Props {
   entry: TimelineEntry;
@@ -59,6 +60,32 @@ export default function TimelineStage({ entry, index }: Props) {
         >
           나도 지금 이 단계인가요? →
         </button>
+
+        {/* 고급 전술 단계 내용증명 템플릿 카드 */}
+        {entry.stageKey === 'advanced_tactics' && <CertifiedMailCard />}
+
+        {/* resolved 카드 하단 형사고소 트랙 링크 */}
+        {entry.stageKey === 'resolved' && (
+          <div className="mt-3">
+            <Link
+              to="/criminal-track"
+              className="text-xs text-slate-400 hover:text-red-400 underline transition-colors"
+            >
+              형사고소 트랙 보기 (민사와 별개 절차입니다)
+            </Link>
+          </div>
+        )}
+
+        {/* 각주 */}
+        {entry.citations && entry.citations.length > 0 && (
+          <ul className="mt-2 space-y-1 text-xs text-slate-400 list-none p-0">
+            {entry.citations.map((c, i) => (
+              <li key={i}>
+                [{c.law}] {c.description}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </article>
   );
