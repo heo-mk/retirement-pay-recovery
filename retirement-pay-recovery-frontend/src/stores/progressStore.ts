@@ -7,7 +7,6 @@ import { persist } from 'zustand/middleware';
 // "지금 뭘 추천할지"같은 파생 로직은 useMemo를 쓰는 훅에서 계산한다.
 
 export type Stage =
-  | 'start'
   | 'received_check'
   | 'time_elapsed'
   | 'complaint_filed'

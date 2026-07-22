@@ -120,7 +120,9 @@ export default function DiagnosisWizard() {
         return <ResultCard />;
 
       default:
-        return <div>알 수 없는 단계입니다. 처음부터 다시 시작해 주세요.</div>;
+        // 알 수 없는 단계(예: localStorage 잔재)는 첫 질문으로 자동 리셋
+        goToStage('received_check');
+        return null;
     }
   };
 
