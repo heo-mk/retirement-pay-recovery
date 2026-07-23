@@ -1,5 +1,4 @@
 import type { StatuteItem, PrecedentItem } from '../../api/legalQueries';
-import LegalDisclaimer from '../LegalDisclaimer';
 
 // ── 법령 목록 ─────────────────────────────────────────────────────────────────
 
@@ -109,7 +108,7 @@ export default function LegalResultList({
   isErrorPrecedents,
 }: LegalResultListProps) {
   return (
-    <section className="legal-section" aria-label="관련 법령·판례">
+    <section className="legal-section flex flex-col gap-6" aria-label="관련 법령·판례">
       <h3 className="legal-section-title">📚 관련 법령·판례</h3>
 
       {/* 법령 */}
@@ -135,9 +134,6 @@ export default function LegalResultList({
           <PrecedentList items={precedents} />
         )}
       </div>
-
-      {/* 이 데이터는 참고용이며 법률 자문이 아님을 항상 명시 */}
-      <LegalDisclaimer />
     </section>
   );
 }

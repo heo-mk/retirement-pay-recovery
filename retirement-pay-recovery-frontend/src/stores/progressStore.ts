@@ -24,8 +24,10 @@ export interface CaseDetails {
 
 interface ProgressState {
   currentStage: Stage;
+  stageHistory: Stage[];
   caseDetails: CaseDetails;
   goToStage: (stage: Stage) => void;
+  goBack: () => void;
   updateCaseDetails: (details: Partial<CaseDetails>) => void;
   reset: () => void;
 }
@@ -40,14 +42,27 @@ export const useProgressStore = create<ProgressState>()(
   persist(
     (set) => ({
       currentStage: 'received_check',
+      stageHistory: [],
       caseDetails: initialCaseDetails,
-      goToStage: (stage) => set({ currentStage: stage }),
+      goToStage: (stage) => set((state) => ({
+        stageHistory: [...state.stageHistory, state.currentStage],
+        currentStage: stage 
+      })),
+      goBack: () => set((state) => {
+        if (state.stageHistory.length === 0) return state;
+        const newHistory = [...state.stageHistory];
+        const previousStage = newHistory.pop();
+        return {
+          stageHistory: newHistory,
+          currentStage: previousStage,
+        };
+      }),
       updateCaseDetails: (details) =>
         set((state) => ({
           caseDetails: { ...state.caseDetails, ...details },
         })),
       reset: () =>
-        set({ currentStage: 'received_check', caseDetails: initialCaseDetails }),
+        set({ currentStage: 'received_check', stageHistory: [], caseDetails: initialCaseDetails }),
     }),
     { name: 'retirement-pay-progress' }
   )

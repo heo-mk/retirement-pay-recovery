@@ -79,7 +79,9 @@ export default function ResultCard() {
       )}
 
       {/* 법적 고지는 ResultCard가 항상 렌더링한다 */}
-      <LegalDisclaimer />
+      <div className="mt-8 mb-6">
+        <LegalDisclaimer />
+      </div>
 
       <button className="reset-btn" onClick={reset}>
         처음부터 다시 진단하기
