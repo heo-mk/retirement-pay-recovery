@@ -4,6 +4,7 @@ import LegalResultList from '../../shared/components/LegalResultList';
 import { useProgressStore } from '../../stores/progressStore';
 import { useStatutesQuery, usePrecedentsQuery } from '../../api/legalQueries';
 import { stageKeywordMap } from './stageKeywordMap';
+import { renderFormattedText } from '../../shared/utils/formatText';
 
 // ResultCard 없이는 추천 행동을 절대 보여주지 않는다 — 법적 고지 누락 방지
 export default function ResultCard() {
@@ -59,11 +60,26 @@ export default function ResultCard() {
               className={`action-item ${action.isUrgent ? 'action-item--urgent' : ''}`}
             >
               {action.isUrgent && <span className="urgent-badge">긴급</span>}
-              {action.text}
+              <div>{renderFormattedText(action.text)}</div>
             </li>
           ))}
         </ul>
       )}
+
+      {/* 지급연기 합의 진단 포인트 가이드 */}
+      <div className="my-6 p-4 rounded-xl bg-slate-900 border border-slate-800 shadow-md">
+        <h3 className="text-sm font-bold text-amber-400 mb-2 flex items-center gap-1.5">
+          <span>⚖️ 퇴직금 지급연기 합의 법적 효력 핵심 요약</span>
+        </h3>
+        <div className="text-xs sm:text-sm text-slate-300 space-y-2 leading-relaxed">
+          <p>
+            • <strong className="text-slate-100">퇴직 전(재직 중) 합의:</strong> 법적으로 <span className="text-red-400 font-bold">무효</span>입니다. 사전 각서가 있어도 퇴직 후 14일 경과 시 즉시 고용노동부 진정 가능!
+          </p>
+          <p>
+            • <strong className="text-slate-100">퇴직 후 14일 이내 합의:</strong> 법적으로 <span className="text-amber-400 font-bold">유효</span>합니다. 사용자를 믿을 수 없다면 14일 이내 합의를 절대 해주지 마세요.
+          </p>
+        </div>
+      </div>
 
 
       {/* 관련 법령·판례 섹션 — 키워드 매핑이 있는 단계에서만 표시 */}

@@ -10,6 +10,9 @@ export default function ComplaintFiledQuestion({ onAnswer }: Props) {
         진정을 제기하면 근로감독관이 사업주에게 <strong>시정명령</strong>을 내릴 수 있습니다.
         시정명령을 무시하면 사업주는 형사처벌 대상이 됩니다.
       </p>
+      <div className="my-3 p-3 rounded-lg bg-slate-900/80 border border-slate-700/70 text-xs text-slate-300">
+        💡 <strong>진정 제기 전 참고:</strong> 퇴직 전 재직 중 써준 지급 연기 각서/합의는 법적으로 무효입니다. 퇴직 후 14일 내 퇴직금이 지급되지 않았다면 즉시 진정서를 제기할 수 있습니다. (단, 퇴직 후 14일 이내 사용자와 한 연장 합의는 효력이 있으므로 신뢰할 수 없다면 절대 14일 내 합의하지 마세요.)
+      </div>
       {/* 버튼 3개 — 라벨이 길어 가로 배치 시 잘릴 수 있으므로 세로(flex-col) 유지
           터치 높이 기준(44px)은 py-3 min-h-[44px]으로 확보 */}
       <div className="answer-group flex flex-col gap-3">

@@ -2,6 +2,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useProgressStore } from '../../stores/progressStore';
 import type { TimelineEntry } from './timelineContent';
 import CertifiedMailCard from './CertifiedMailCard';
+import { renderFormattedText } from '../../shared/utils/formatText';
 
 interface Props {
   entry: TimelineEntry;
@@ -31,13 +32,13 @@ export default function TimelineStage({ entry, index }: Props) {
       <div className="timeline-card-body">
         <h2 className="timeline-card-title">{entry.title}</h2>
 
-        <p className="timeline-card-text">{entry.body}</p>
+        <div className="timeline-card-text">{renderFormattedText(entry.body)}</div>
 
         {/* 시행착오 콜아웃 — 모바일 text-sm, PC text-base, 전체 너비 */}
         {entry.pitfall && (
           <div className="timeline-callout timeline-callout--pitfall w-full text-sm lg:text-base">
             <span className="timeline-callout-label">⚠️ 이때 하지 않아도 될 일</span>
-            <p>{entry.pitfall}</p>
+            <div>{renderFormattedText(entry.pitfall)}</div>
           </div>
         )}
 
@@ -45,7 +46,7 @@ export default function TimelineStage({ entry, index }: Props) {
         {entry.worstCase && (
           <div className="timeline-callout timeline-callout--worst w-full text-sm lg:text-base">
             <span className="timeline-callout-label">🚨 최악의 상황이라면</span>
-            <p>{entry.worstCase}</p>
+            <div>{renderFormattedText(entry.worstCase)}</div>
           </div>
         )}
 

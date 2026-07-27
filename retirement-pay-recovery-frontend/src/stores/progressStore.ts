@@ -7,8 +7,10 @@ import { persist } from 'zustand/middleware';
 // "지금 뭘 추천할지"같은 파생 로직은 useMemo를 쓰는 훅에서 계산한다.
 
 export type Stage =
+  | 'start'
   | 'received_check'
   | 'time_elapsed'
+  | 'agreement_check'
   | 'complaint_filed'
   | 'execution_title'
   | 'forced_execution'
@@ -16,10 +18,17 @@ export type Stage =
   | 'advanced_tactics'
   | 'resolved';
 
+export type AgreementStatus =
+  | 'pre_retirement'
+  | 'post_retirement_within_14d'
+  | 'post_retirement_no_agreement'
+  | 'none';
+
 export interface CaseDetails {
   unpaidAmount: number | null;
   monthsElapsed: number | null;
   hasCorrectionOrderIgnored: boolean | null;
+  agreementStatus: AgreementStatus | null;
 }
 
 interface ProgressState {
@@ -36,6 +45,7 @@ const initialCaseDetails: CaseDetails = {
   unpaidAmount: null,
   monthsElapsed: null,
   hasCorrectionOrderIgnored: null,
+  agreementStatus: null,
 };
 
 export const useProgressStore = create<ProgressState>()(

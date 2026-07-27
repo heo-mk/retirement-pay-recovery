@@ -2,6 +2,7 @@ import { useProgressStore } from '../../stores/progressStore';
 import type { Stage } from '../../stores/progressStore';
 import ReceivedCheckQuestion from './questions/ReceivedCheckQuestion';
 import TimeElapsedQuestion from './questions/TimeElapsedQuestion';
+import AgreementCheckQuestion from './questions/AgreementCheckQuestion';
 import ComplaintFiledQuestion from './questions/ComplaintFiledQuestion';
 import ExecutionTitleQuestion from './questions/ExecutionTitleQuestion';
 import ForcedExecutionQuestion from './questions/ForcedExecutionQuestion';
@@ -11,6 +12,7 @@ import ResultCard from './ResultCard';
 const STAGE_ORDER: Stage[] = [
   'received_check',
   'time_elapsed',
+  'agreement_check',
   'complaint_filed',
   'execution_title',
   'forced_execution',
@@ -18,8 +20,10 @@ const STAGE_ORDER: Stage[] = [
 ];
 
 const STAGE_LABELS: Record<Stage, string> = {
+  start: '시작',
   received_check: '지급여부',
   time_elapsed: '기간경과',
+  agreement_check: '합의여부',
   complaint_filed: '노동청신고',
   execution_title: '집행권원',
   forced_execution: '강제집행',
@@ -73,6 +77,16 @@ export default function DiagnosisWizard() {
           <TimeElapsedQuestion
             onAnswer={(months) => {
               updateCaseDetails({ monthsElapsed: months });
+              goToStage('agreement_check');
+            }}
+          />
+        );
+
+      case 'agreement_check':
+        return (
+          <AgreementCheckQuestion
+            onAnswer={(status) => {
+              updateCaseDetails({ agreementStatus: status });
               goToStage('complaint_filed');
             }}
           />

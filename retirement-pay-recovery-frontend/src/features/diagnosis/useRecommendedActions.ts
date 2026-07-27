@@ -15,7 +15,7 @@ export function useRecommendedActions(): RecommendedAction[] {
 
   return useMemo(() => {
     const actions: RecommendedAction[] = [];
-    const { monthsElapsed, hasCorrectionOrderIgnored } = caseDetails;
+    const { monthsElapsed, hasCorrectionOrderIgnored, agreementStatus } = caseDetails;
 
     // 소멸시효 경고: 33개월(약 3년)을 넘으면 최우선 경고
     if (monthsElapsed !== null && monthsElapsed >= 33) {
@@ -23,6 +23,25 @@ export function useRecommendedActions(): RecommendedAction[] {
         id: 'statute-warning',
         text: `소멸시효가 얼마 남지 않았습니다 (현재 ${monthsElapsed}개월 경과). 즉시 법원 지급명령 또는 소 제기를 통해 시효를 중단시키세요.`,
         isUrgent: true,
+      });
+    }
+
+    // 퇴직 전 합의 작성 ➡️ 법적 무효 긴급 고지
+    if (agreementStatus === 'pre_retirement') {
+      actions.push({
+        id: 'pre-agreement-invalid',
+        text: '퇴직 전(재직 중) 작성한 지급연기 각서는 법적으로 무효입니다. 퇴직 후 14일 경과 시 즉시 고용노동부에 진정을 제기할 수 있습니다.',
+        isUrgent: true,
+      });
+    } else if (agreementStatus === 'post_retirement_within_14d') {
+      actions.push({
+        id: 'post-agreement-valid',
+        text: '퇴직 후 14일 이내에 한 합의는 법적 효력이 발생하므로 약정 기한까지 대기 후 진정하세요. (신뢰할 수 없다면 추가 연장 합의는 절대 금지)',
+      });
+    } else if (agreementStatus === 'post_retirement_no_agreement') {
+      actions.push({
+        id: 'post-no-agreement',
+        text: '사용자를 신뢰할 수 없다면 퇴직 후 14일 이내 지급연기 합의를 하지 마세요. 14일 경과 직후 즉시 노동청 진정을 제기하세요.',
       });
     }
 
@@ -37,10 +56,11 @@ export function useRecommendedActions(): RecommendedAction[] {
     // 단계별 핵심 추천 행동
     switch (currentStage) {
       case 'received_check':
-        actions.push({ id: 'file-complaint', text: '고용노동부 고객상담센터(☎1350)에 임금체불 진정을 접수하세요.' });
-        break;
       case 'time_elapsed':
-        actions.push({ id: 'file-complaint', text: '고용노동부 고객상담센터(☎1350)에 임금체불 진정을 접수하세요.' });
+      case 'agreement_check':
+        actions.push(
+          { id: 'file-complaint', text: '퇴직 후 14일 경과 시 즉시 고용노동부 고객상담센터(☎1350) 또는 노동청에 진정을 접수하세요.' }
+        );
         break;
       case 'complaint_filed':
         actions.push({ id: 'wait-correction', text: '근로감독관의 시정명령 결과를 기다리세요. 진행 상황은 고용노동부 민원마당에서 조회할 수 있습니다.' });

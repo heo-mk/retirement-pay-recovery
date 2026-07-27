@@ -11,6 +11,7 @@ import type { Stage } from '../../stores/progressStore';
 export const stageKeywordMap: Partial<Record<Stage, string>> = {
   received_check:     '근로자퇴직급여 보장법',   // 퇴직금 체불 → 퇴직급여 보장 근거 법령
   time_elapsed:       '임금채권보장법',           // 임금채권 소멸시효 → 임금채권보장 법령
+  agreement_check:    '근로자퇴직급여 보장법',   // 합의 효력 및 기한 연장 → 근로자퇴직급여 보장법
   complaint_filed:    '근로기준법',               // 임금체불 진정 → 근로기준법 체불 제재 규정
   execution_title:    '민사소송법',               // 집행권원(지급명령) → 민사소송법
   forced_execution:   '민사집행법',               // 강제집행 → 민사집행법
