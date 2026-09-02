@@ -8,7 +8,9 @@ const legalRoutes = require('./routes/legal.routes');
 const app = express();
 
 // ── 미들웨어 ──────────────────────────────────────────────
-app.use(cors());
+app.use(cors({
+  origin: ['https://payforce-ebon.vercel.app', 'http://localhost:3001']
+}));
 app.use(express.json());
 
 // ── 헬스체크 ──────────────────────────────────────────────
