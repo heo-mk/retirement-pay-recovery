@@ -1,6 +1,6 @@
 # 퇴직금 회수 가이드 (Retirement Pay Recovery Guide)
 
-🔗 **[배포 사이트 바로가기](https://payforce-ebon.vercel.app/)**
+* **배포 사이트:** [https://payforce-ebon.vercel.app](https://payforce-ebon.vercel.app/)
 
 퇴직금 미지급 피해자가 스스로 회수 절차를 밟을 수 있도록, 9단계 회수 로드맵과 맞춤형 진단 도구를 제공하는 웹 애플리케이션입니다.
 
