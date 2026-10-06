@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { useProgressStore } from '../../stores/progressStore';
+import { isStatuteExpired, isStatuteWarning, statuteExpiredText, statuteWarningText } from './statuteWarning';
 
 export interface RecommendedAction {
   id: string;
@@ -18,10 +19,16 @@ export function useRecommendedActions(): RecommendedAction[] {
     const { monthsElapsed, hasCorrectionOrderIgnored, agreementStatus } = caseDetails;
 
     // 소멸시효 경고: 33개월(약 3년)을 넘으면 최우선 경고
-    if (monthsElapsed !== null && monthsElapsed >= 33) {
+    if (monthsElapsed !== null && isStatuteExpired(monthsElapsed)) {
+      actions.push({
+        id: 'statute-expired',
+        text: statuteExpiredText(monthsElapsed),
+        isUrgent: true,
+      });
+    } else if (monthsElapsed !== null && isStatuteWarning(monthsElapsed)) {
       actions.push({
         id: 'statute-warning',
-        text: `소멸시효가 얼마 남지 않았습니다 (현재 ${monthsElapsed}개월 경과). 즉시 법원 지급명령 또는 소 제기를 통해 시효를 중단시키세요.`,
+        text: statuteWarningText(monthsElapsed),
         isUrgent: true,
       });
     }

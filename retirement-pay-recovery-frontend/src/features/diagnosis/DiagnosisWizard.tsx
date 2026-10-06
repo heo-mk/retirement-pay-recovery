@@ -8,6 +8,16 @@ import ExecutionTitleQuestion from './questions/ExecutionTitleQuestion';
 import ForcedExecutionQuestion from './questions/ForcedExecutionQuestion';
 import OpponentResistingQuestion from './questions/OpponentResistingQuestion';
 import ResultCard from './ResultCard';
+import StatuteWarningBanner from './StatuteWarningBanner';
+import { isStatuteWarning } from './statuteWarning';
+
+const BANNER_STAGES: Stage[] = [
+  'agreement_check',
+  'complaint_filed',
+  'execution_title',
+  'forced_execution',
+  'opponent_resisting',
+];
 
 const STAGE_ORDER: Stage[] = [
   'received_check',
@@ -42,6 +52,7 @@ export default function DiagnosisWizard() {
   const goToStage = useProgressStore((s) => s.goToStage);
   const goBack = useProgressStore((s) => s.goBack);
   const updateCaseDetails = useProgressStore((s) => s.updateCaseDetails);
+  const monthsElapsed = useProgressStore((s) => s.caseDetails.monthsElapsed);
   const reset = useProgressStore((s) => s.reset);
 
   // 진행 표시줄 계산
@@ -247,6 +258,9 @@ export default function DiagnosisWizard() {
 
       {/* 질문 / 결과 카드 */}
       <section className="wizard-body">
+        {monthsElapsed !== null && isStatuteWarning(monthsElapsed) && BANNER_STAGES.includes(currentStage) && (
+          <StatuteWarningBanner months={monthsElapsed} />
+        )}
         {renderQuestion()}
       </section>
 
