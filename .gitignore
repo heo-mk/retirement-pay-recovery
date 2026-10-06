@@ -1,4 +1,3 @@
-# README.md 외에는 모두 제외
-*
-!.gitignore
+# README.md 외의 마크다운 파일은 제외
+*.md
 !README.md
