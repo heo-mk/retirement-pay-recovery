@@ -1,6 +1,7 @@
 # 퇴직금 회수 가이드 (Retirement Pay Recovery Guide)
 
 * **배포 사이트:** [https://payforce-ebon.vercel.app](https://payforce-ebon.vercel.app/)
+* **백엔드 배포(API):** [https://payforce-backend.onrender.com](https://payforce-backend.onrender.com/)
 
 퇴직금 미지급 피해자가 스스로 회수 절차를 밟을 수 있도록, 9단계 회수 로드맵과 맞춤형 진단 도구를 제공하는 웹 애플리케이션입니다.
 
@@ -73,6 +74,7 @@
 ### 사전 준비
 
 - Node.js 설치
+- pnpm (설치: npm install -g pnpm)
 - 법제처 Open API 인증키(OC ID) — [법제처 Open API 신청](https://open.law.go.kr) (없어도 Mock 데이터로 실행 가능)
 
 ### 백엔드
@@ -80,16 +82,16 @@
 ```bash
 cd retirement-pay-recovery-backend
 cp .env.example .env   # LAW_API_OC_ID 값 입력
-npm install
-npm run dev             # http://localhost:5001
+pnpm install
+pnpm dev             # http://localhost:5001
 ```
 
 ### 프론트엔드
 
 ```bash
 cd retirement-pay-recovery-frontend
-npm install
-npm run dev             # http://localhost:3001
+pnpm install
+pnpm dev             # http://localhost:3001
 ```
 
 프론트엔드는 Vite 프록시를 통해 `/api/*` 요청을 백엔드(`localhost:5001`)로 전달합니다.
