@@ -7,12 +7,12 @@ describe('statuteWarning', () => {
       expect(isStatuteWarning(null)).toBe(false);
     });
 
-    it('경과 개월이 33 미만이면 false를 반환한다', () => {
-      expect(isStatuteWarning(32)).toBe(false);
+    it('경과 개월이 24 미만이면 false를 반환한다', () => {
+      expect(isStatuteWarning(23)).toBe(false);
     });
 
-    it('경과 개월이 33 이상이면 true를 반환한다', () => {
-      expect(isStatuteWarning(33)).toBe(true);
+    it('경과 개월이 24 이상이면 true를 반환한다', () => {
+      expect(isStatuteWarning(24)).toBe(true);
     });
 
     it('경과 개월이 36 이상이면 true를 반환한다', () => {
@@ -25,12 +25,12 @@ describe('statuteWarning', () => {
       expect(isStatuteExpired(null)).toBe(false);
     });
 
-    it('경과 개월이 33 미만이면 false를 반환한다', () => {
-      expect(isStatuteExpired(32)).toBe(false);
+    it('경과 개월이 24 미만이면 false를 반환한다', () => {
+      expect(isStatuteExpired(23)).toBe(false);
     });
 
-    it('경과 개월이 33 이상 36 미만이면 false를 반환한다', () => {
-      expect(isStatuteExpired(33)).toBe(false);
+    it('경과 개월이 24 이상 36 미만이면 false를 반환한다', () => {
+      expect(isStatuteExpired(24)).toBe(false);
       expect(isStatuteExpired(35)).toBe(false);
     });
 

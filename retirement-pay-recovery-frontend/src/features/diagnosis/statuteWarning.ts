@@ -1,4 +1,4 @@
-export const STATUTE_WARNING_MONTHS = 33;
+export const STATUTE_WARNING_MONTHS = 24;
 export const STATUTE_EXPIRED_MONTHS = 36;
 
 export function isStatuteWarning(months: number | null): boolean {
