@@ -3,10 +3,12 @@ import TimelinePage from './features/timeline/TimelinePage';
 import DiagnosisWizard from './features/diagnosis/DiagnosisWizard';
 import CriminalTrackPage from './features/criminalTrack/CriminalTrackPage';
 import NavBar from './shared/NavBar';
+import ScrollToTop from './shared/ScrollToTop';
 
 export default function App() {
   return (
     <>
+      <ScrollToTop />
       <NavBar />
       <div className="app-content">
         <Routes>
@@ -18,3 +20,4 @@ export default function App() {
     </>
   );
 }
+

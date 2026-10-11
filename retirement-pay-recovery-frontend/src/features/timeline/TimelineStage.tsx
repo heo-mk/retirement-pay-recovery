@@ -12,9 +12,16 @@ interface Props {
 export default function TimelineStage({ entry, index }: Props) {
   const navigate = useNavigate();
   const goToStage = useProgressStore((s) => s.goToStage);
+  const jumpToStage = useProgressStore((s) => s.jumpToStage);
+
+  const isResultStage = entry.stageKey === 'resolved' || entry.stageKey === 'advanced_tactics';
 
   function handleJumpToStage() {
-    goToStage(entry.stageKey);
+    if (isResultStage) {
+      jumpToStage(entry.stageKey);
+    } else {
+      goToStage(entry.stageKey);
+    }
     navigate('/diagnosis');
   }
 
