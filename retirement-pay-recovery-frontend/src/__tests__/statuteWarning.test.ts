@@ -1,0 +1,42 @@
+import { describe, it, expect } from 'vitest';
+import { isStatuteWarning, isStatuteExpired } from '../features/diagnosis/statuteWarning';
+
+describe('statuteWarning', () => {
+  describe('isStatuteWarning', () => {
+    it('경과 개월이 null이면 false를 반환한다', () => {
+      expect(isStatuteWarning(null)).toBe(false);
+    });
+
+    it('경과 개월이 33 미만이면 false를 반환한다', () => {
+      expect(isStatuteWarning(32)).toBe(false);
+    });
+
+    it('경과 개월이 33 이상이면 true를 반환한다', () => {
+      expect(isStatuteWarning(33)).toBe(true);
+    });
+
+    it('경과 개월이 36 이상이면 true를 반환한다', () => {
+      expect(isStatuteWarning(36)).toBe(true);
+    });
+  });
+
+  describe('isStatuteExpired', () => {
+    it('경과 개월이 null이면 false를 반환한다', () => {
+      expect(isStatuteExpired(null)).toBe(false);
+    });
+
+    it('경과 개월이 33 미만이면 false를 반환한다', () => {
+      expect(isStatuteExpired(32)).toBe(false);
+    });
+
+    it('경과 개월이 33 이상 36 미만이면 false를 반환한다', () => {
+      expect(isStatuteExpired(33)).toBe(false);
+      expect(isStatuteExpired(35)).toBe(false);
+    });
+
+    it('경과 개월이 36 이상이면 true를 반환한다', () => {
+      expect(isStatuteExpired(36)).toBe(true);
+      expect(isStatuteExpired(40)).toBe(true);
+    });
+  });
+});
