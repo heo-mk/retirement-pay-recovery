@@ -12,7 +12,6 @@ import StatuteWarningBanner from './StatuteWarningBanner';
 import { isStatuteWarning } from './statuteWarning';
 
 const BANNER_STAGES: Stage[] = [
-  'agreement_check',
   'complaint_filed',
   'execution_title',
   'forced_execution',
@@ -21,8 +20,8 @@ const BANNER_STAGES: Stage[] = [
 
 const STAGE_ORDER: Stage[] = [
   'received_check',
-  'time_elapsed',
   'agreement_check',
+  'time_elapsed',
   'complaint_filed',
   'execution_title',
   'forced_execution',
@@ -32,8 +31,8 @@ const STAGE_ORDER: Stage[] = [
 const STAGE_LABELS: Record<Stage, string> = {
   start: '시작',
   received_check: '지급여부',
-  time_elapsed: '기간경과',
   agreement_check: '합의여부',
+  time_elapsed: '기간경과',
   complaint_filed: '노동청신고',
   execution_title: '집행권원',
   forced_execution: '강제집행',
@@ -77,18 +76,8 @@ export default function DiagnosisWizard() {
                 // 조기 종료: 이미 받은 경우
                 goToStage('resolved');
               } else {
-                goToStage('time_elapsed');
+                goToStage('agreement_check');
               }
-            }}
-          />
-        );
-
-      case 'time_elapsed':
-        return (
-          <TimeElapsedQuestion
-            onAnswer={(months) => {
-              updateCaseDetails({ monthsElapsed: months });
-              goToStage('agreement_check');
             }}
           />
         );
@@ -98,6 +87,16 @@ export default function DiagnosisWizard() {
           <AgreementCheckQuestion
             onAnswer={(status) => {
               updateCaseDetails({ agreementStatus: status });
+              goToStage('time_elapsed');
+            }}
+          />
+        );
+
+      case 'time_elapsed':
+        return (
+          <TimeElapsedQuestion
+            onAnswer={(months) => {
+              updateCaseDetails({ monthsElapsed: months });
               goToStage('complaint_filed');
             }}
           />
