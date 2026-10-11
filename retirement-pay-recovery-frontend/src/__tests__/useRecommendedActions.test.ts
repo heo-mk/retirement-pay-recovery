@@ -20,8 +20,8 @@ describe('useRecommendedActions', () => {
     expect(statuteAction).toBeUndefined();
   });
 
-  it('경과 개월이 33 미만이면 소멸시효 관련 긴급 항목이 추가되지 않는다', () => {
-    useProgressStore.getState().updateCaseDetails({ monthsElapsed: 30 });
+  it('경과 개월이 24 미만이면 소멸시효 관련 긴급 항목이 추가되지 않는다', () => {
+    useProgressStore.getState().updateCaseDetails({ monthsElapsed: 20 });
     const { result } = renderHook(() => useRecommendedActions());
 
     const statuteAction = result.current.find(
@@ -30,7 +30,7 @@ describe('useRecommendedActions', () => {
     expect(statuteAction).toBeUndefined();
   });
 
-  it('경과 개월이 33 이상 36 미만이면 소멸시효 경고 긴급 항목과 경고 문구가 추가된다', () => {
+  it('경과 개월이 24 이상 36 미만이면 소멸시효 경고 긴급 항목과 경고 문구가 추가된다', () => {
     useProgressStore.getState().updateCaseDetails({ monthsElapsed: 34 });
     const { result } = renderHook(() => useRecommendedActions());
 
