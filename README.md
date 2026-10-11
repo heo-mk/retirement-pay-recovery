@@ -21,7 +21,8 @@
 ## 주요 기능
 
 - **회수 타임라인** — 9단계 회수 절차를 카드형 타임라인으로 제공
-- **진단 마법사** — 7개 질문으로 사용자의 현재 상황을 파악해 맞춤 행동 지침 출력
+- **진단 마법사** — 7단계 질문(지급여부 → 합의여부 → 기간경과 → 노동청신고 → 집행권원 → 강제집행 → 추가대응)으로 사용자의 현재 상황을 파악해 맞춤 행동 지침 출력
+- **소멸시효 경고** — 소멸시효 경고 기준은 24개월(만료 36개월의 1년 전, 기준값: `retirement-pay-recovery-frontend/src/features/diagnosis/statuteWarning.ts`)이며 36개월 이상은 별도 상담 안내 문구 출력. 기간경과 입력 화면에서는 24개월 이상을 입력하는 즉시 경고 배너가 입력창 아래에 나오고, Enter로 다음 단계로 이동하며, 이후 단계에서도 경고 배너 표시
 - **법령·판례 실시간 조회** — 진단 단계에 매핑된 키워드로 법제처 API를 조회해 관련 법령·판례 표시
 - **내용증명 5단 템플릿** — 제3채무자 대상 내용증명 구성 안내 및 클립보드 복사
 - **형사고소 트랙** — 재산명시 허위 제출 시 형사고소 절차·핵심 법리 별도 안내
@@ -41,6 +42,7 @@
 | 클라이언트 상태 | Zustand 5.0 (persist 미들웨어) |
 | HTTP 클라이언트 | axios 1.18 |
 | 스타일 | Tailwind CSS 3.4 |
+| 테스트 | Vitest (Testing Library, jsdom) |
 
 ### 백엔드
 
@@ -50,6 +52,7 @@
 | 프레임워크 | Express 5.2 |
 | HTTP 클라이언트 | axios 1.18 |
 | 기타 | cors 2.8, dotenv 17.4 |
+| 테스트 | Node 내장 테스트 러너(node:test), supertest |
 
 ### 외부 API
 
@@ -84,6 +87,7 @@ cd retirement-pay-recovery-backend
 cp .env.example .env   # LAW_API_OC_ID 값 입력
 pnpm install
 pnpm dev             # http://localhost:5001
+pnpm test            # node --test
 ```
 
 ### 프론트엔드
@@ -92,6 +96,7 @@ pnpm dev             # http://localhost:5001
 cd retirement-pay-recovery-frontend
 pnpm install
 pnpm dev             # http://localhost:3001
+pnpm test            # vitest run
 ```
 
 프론트엔드는 Vite 프록시를 통해 `/api/*` 요청을 백엔드(`localhost:5001`)로 전달합니다.
@@ -123,7 +128,6 @@ retirement-pay-recovery-backend/
 ## 알려진 제약 사항
 
 - 실제 법제처 API 키 미연동 상태 — 현재는 Mock 데이터로 동작 (하드코딩된 가상 판례번호 포함)
-- 테스트 코드 없음 (단위/통합 테스트 미작성)
 - 배포 환경 설정 없음 (Dockerfile, CI/CD 미구성)
 - `CaseDetails.unpaidAmount` 필드가 정의만 되어 있고 아직 입력/활용되지 않음
 
