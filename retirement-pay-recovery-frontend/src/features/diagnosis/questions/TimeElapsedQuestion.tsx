@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import StatuteWarningBanner from '../StatuteWarningBanner';
+import { isStatuteWarning } from '../statuteWarning';
 
 interface Props {
   onAnswer: (months: number) => void;
@@ -6,6 +8,9 @@ interface Props {
 
 export default function TimeElapsedQuestion({ onAnswer }: Props) {
   const [months, setMonths] = useState('');
+
+  const parsedMonths = parseInt(months, 10);
+  const showBanner = months.trim() !== '' && !isNaN(parsedMonths) && isStatuteWarning(parsedMonths);
 
   const handleSubmit = () => {
     const value = parseInt(months, 10);
@@ -15,7 +20,9 @@ export default function TimeElapsedQuestion({ onAnswer }: Props) {
   };
 
   return (
-    <div className="question-card">
+    <>
+      {showBanner && <StatuteWarningBanner months={parsedMonths} />}
+      <div className="question-card">
       <h2 className="question-title">퇴직 후 몇 개월이 지났나요?</h2>
       <p className="question-desc">
         퇴직금 청구권의 소멸시효는 <strong>3년(36개월)</strong>입니다.
@@ -44,5 +51,6 @@ export default function TimeElapsedQuestion({ onAnswer }: Props) {
         다음
       </button>
     </div>
+    </>
   );
 }
