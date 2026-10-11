@@ -36,6 +36,7 @@ interface ProgressState {
   stageHistory: Stage[];
   caseDetails: CaseDetails;
   goToStage: (stage: Stage) => void;
+  jumpToStage: (stage: Stage) => void;
   goBack: () => void;
   updateCaseDetails: (details: Partial<CaseDetails>) => void;
   reset: () => void;
@@ -58,6 +59,7 @@ export const useProgressStore = create<ProgressState>()(
         stageHistory: [...state.stageHistory, state.currentStage],
         currentStage: stage 
       })),
+      jumpToStage: (stage) => set({ currentStage: stage, stageHistory: [] }),
       goBack: () => set((state) => {
         if (state.stageHistory.length === 0) return state;
         const newHistory = [...state.stageHistory];
