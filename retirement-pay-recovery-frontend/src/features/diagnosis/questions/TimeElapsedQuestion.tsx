@@ -13,16 +13,21 @@ export default function TimeElapsedQuestion({ onAnswer }: Props) {
   const showBanner = months.trim() !== '' && !isNaN(parsedMonths) && isStatuteWarning(parsedMonths);
 
   const handleSubmit = () => {
+    if (months === '' || isNaN(parseInt(months, 10))) return;
     const value = parseInt(months, 10);
     if (!isNaN(value) && value >= 0) {
       onAnswer(value);
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSubmit();
+    }
+  };
+
   return (
-    <>
-      {showBanner && <StatuteWarningBanner months={parsedMonths} />}
-      <div className="question-card">
+    <div className="question-card">
       <h2 className="question-title">퇴직 후 몇 개월이 지났나요?</h2>
       <p className="question-desc">
         퇴직금 청구권의 소멸시효는 <strong>3년(36개월)</strong>입니다.
@@ -38,10 +43,12 @@ export default function TimeElapsedQuestion({ onAnswer }: Props) {
           placeholder="예: 8"
           value={months}
           onChange={(e) => setMonths(e.target.value)}
+          onKeyDown={handleKeyDown}
           className="text-input flex-1 w-full py-3 min-h-[44px]"
         />
         <span className="input-suffix">개월</span>
       </div>
+      {showBanner && <StatuteWarningBanner months={parsedMonths} />}
       {/* 확인 버튼 — 모바일에서 전체 너비, 최소 44px 높이 */}
       <button
         className="answer-btn answer-btn--primary w-full py-3 min-h-[44px]"
@@ -51,6 +58,5 @@ export default function TimeElapsedQuestion({ onAnswer }: Props) {
         다음
       </button>
     </div>
-    </>
   );
 }
