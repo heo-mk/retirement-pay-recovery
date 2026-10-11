@@ -18,7 +18,7 @@ export function useRecommendedActions(): RecommendedAction[] {
     const actions: RecommendedAction[] = [];
     const { monthsElapsed, hasCorrectionOrderIgnored, agreementStatus } = caseDetails;
 
-    // 소멸시효 경고: 24개월(만료 1년 전)을 넘으면 최우선 경고
+    // 소멸시효 경고: 24개월(만료 1년 전) 이상이면 최우선 경고
     if (monthsElapsed !== null && isStatuteExpired(monthsElapsed)) {
       actions.push({
         id: 'statute-expired',
