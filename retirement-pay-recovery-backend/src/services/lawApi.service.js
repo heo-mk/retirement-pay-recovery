@@ -68,7 +68,7 @@ async function callLawSearch(target, keyword) {
     response = await axios.get(LAW_SEARCH_BASE, { params, timeout: 10000 });
   } catch (err) {
     console.error(`[lawApi] 외부 API 호출 실패 (target=${target}):`, err.message);
-    throw new Error('law api unavailable');
+    throw new Error('law api unavailable', { cause: err });
   }
 
   // 법제처는 Accept 무관하게 Content-Type이 불일치할 수 있으므로 직접 파싱
